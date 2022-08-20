@@ -176,7 +176,7 @@ def print_other_words(node):
                 console.print(f"[bold yellow italic]{elm.text}", end="\n")
 
             if has_words:
-                console.print(f"[#b2b2b2]{elm.text}", end=" ")
+                console.print(f"{elm.text}", end=" ")
 
             if has_type:
                 console.print(f"{elm.text}", end=" ", style="bold italic")
@@ -275,9 +275,9 @@ def print_phrases(node, words):
                 console.print(f"{t}", end="")
             else:
                 if phrase != phrases[-1]:
-                    console.print(f"{t},", end=" ", style="#b2b2b2")
+                    console.print(f"{t},", end=" ")
                 else:
-                    console.print(f"{t}", end="\n", style="#b2b2b2")
+                    console.print(f"{t}", end="\n")
 
             # !!! print(repr(t))
             # '\n          '     # if the tag has no text
@@ -411,28 +411,28 @@ def print_def_text(node, dtText_index, tag_class, has_label_1, has_label_2, subs
 
     if dtText_index == 0:
         if has_label_1 or has_label_2 or tag_class == "sb-0":
-            console.print(t, end="", style="#b2b2b2")
+            console.print(t, end="")
         else:
             if subsense_index == -1 or subsense_index == 0:
                 print()
-                console.print(f"  {t}", end="", style="#b2b2b2")
+                console.print(f"  {t}", end="")
             if subsense_index > 0:
-                console.print(t, end="", style="#b2b2b2")
+                console.print(t, end="")
 
     # If it's not the first dtText, it has to indent
     # except that it has label
     else:
         if has_label_2:
-            console.print(t, end="", style="#b2b2b2")
+            console.print(t, end="")
         if has_label_1:
             print()
-            console.print(f"   {t}", end="", style="#b2b2b2")
+            console.print(f"   {t}", end="")
         else:
             if subsense_index == -1 or subsense_index == 0:
                 print()
-                console.print(f"  {t}", end="", style="#b2b2b2")
+                console.print(f"  {t}", end="")
             if subsense_index > 0:
-                console.print(t, end="", style="#b2b2b2")
+                console.print(t, end="")
 
 
 def print_def_content(node, has_number, tag_class, has_label_1, is_sdsense, subsense_index):
