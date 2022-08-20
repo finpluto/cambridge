@@ -5,4 +5,4 @@ This script constructs rich console object.
 
 from rich.console import Console
 
-console = Console(color_system="truecolor", highlight=False)
+console = Console(color_system="truecolor", highlight=False, record=True)
