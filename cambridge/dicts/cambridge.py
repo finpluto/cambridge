@@ -292,7 +292,7 @@ def parse_dict_head(block):
         if head.find("span", "spellvar dspellvar"):
             parse_head_spellvar(head)
 
-        print()
+        console.print()
     else:
         console.print("[bold #3C8DAD on #DDDDDD]" + word)
         if info:
@@ -311,9 +311,9 @@ def parse_ptitle(block):
         phrase_info = "  - " + replace_all(
             block.find("span", "phrase-info dphrase-info").text
         )
-        print(f"\n\033[1m  {p_title} {phrase_info}\033[0m")
+        console.print(f"[bold] {p_title} {phrase_info}[/]")
     else:
-        print(f"\n\033[1m  {p_title}\033[0m")
+        console.print(f"[bold] {p_title}[/]")
 
 
 def parse_def_info(def_block):
@@ -322,9 +322,9 @@ def parse_def_info(def_block):
         def_into = ""
     if def_info:
         if "phrase-body" in def_block.parent.attrs["class"]:
-            print("  " + "\033[1m" + def_info + " " + "\033[0m", end="")
+            console.print(f"  [bold]{def_info} [/]", end="")
         else:
-            print(def_info + " ", end="")
+            console.print(f"def_info ", end="")
 
 
 def parse_meaning(def_block):
@@ -333,10 +333,10 @@ def parse_meaning(def_block):
         usage_b = meaning_b.find("span", "lab dlab")
         usage = replace_all(usage_b.text)
         meaning_words = replace_all(meaning_b.text).split(usage)[-1]
-        print(usage + "\033[33m" + meaning_words + "\033[0m")
+        console.print(f"{usage}[yellow]{meaning_words}[/]")
     else:
         meaning_words = replace_all(meaning_b.text)
-        print("\033[33m" + meaning_words + "\033[0m")
+        console.print(f"[yellow]{meaning_words}[/]")
 
 
 def parse_pmeaning(def_block):
@@ -345,10 +345,10 @@ def parse_pmeaning(def_block):
         usage_b = meaning_b.find("span", "lab dlab")
         usage = replace_all(usage_b.text)
         meaning_words = replace_all(meaning_b.text).split(usage)[-1]
-        print("  " + usage + "\033[33m" + meaning_words + "\033[0m")
+        console.print(f"{usage}[yellow]{meaning_words}[/]")
     else:
         meaning_words = replace_all(meaning_b.text)
-        print("  " + "\033[33m" + meaning_words + "\033[0m")
+        console.print(f"[yellow]{meaning_words}[/]")
 
 
 def parse_example(def_block):
