@@ -324,7 +324,7 @@ def parse_def_info(def_block):
         if "phrase-body" in def_block.parent.attrs["class"]:
             console.print(f"  [bold]{def_info} [/]", end="")
         else:
-            console.print(f"def_info ", end="")
+            console.print(f"{def_info} ", end="")
 
 
 def parse_meaning(def_block):
