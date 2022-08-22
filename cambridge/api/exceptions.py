@@ -1,0 +1,2 @@
+class CacheNotFoundException(Exception):
+    pass
