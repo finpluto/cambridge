@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cambridge_api"
+name = "cambridge"
 version = "0.1.0"
 description = "a cambridge dictionary async api"
 authors = ["finpluto <finpluto@hotmail.com>"]
