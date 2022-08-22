@@ -1,5 +1,16 @@
+import asyncio
 import datetime
 import aiosqlite
+
+
+db_background_tasks = set()
+
+
+async def wait_all_db_tasks():
+    return await asyncio.gather(
+        *db_background_tasks,
+        return_exceptions=True
+    )
 
 
 async def create_table(con, cur):

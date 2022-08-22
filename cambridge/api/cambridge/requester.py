@@ -6,7 +6,7 @@ import logging
 import aiosqlite
 from user_agent import generate_user_agent
 
-from cambridge.api.db import get_cache, insert_into_table
+from cambridge.api.db import get_cache, insert_into_table, db_background_tasks
 from cambridge.utils import *
 from cambridge.settings import OP
 from cambridge.api.linearize import LinearRequester
@@ -58,12 +58,15 @@ async def fetch_by_request(con, cur, input_word, req_url):
         soup = make_a_soup(res_text)
         response_word = parse_response_word(soup)
 
-        ret = await asyncio.gather(
+        # db work in seperated tasks.
+        db_tasks = asyncio.create_task(
             save_word_response(con, cur, input_word,
-                               response_word, res_url, res_text),
-            parse_and_export_html(res_url, soup)
+                               response_word, res_url, res_text)
         )
-        return ret[1]
+        db_background_tasks.add(db_tasks)
+        db_tasks.add_done_callback(db_background_tasks.discard)
+
+        return await parse_and_export_html(res_url, soup)
 
     spell_res_url, spell_res_text = result[1]
     soup = make_a_soup(spell_res_text)
