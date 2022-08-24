@@ -74,6 +74,7 @@ async def fetch_by_request(con, cur, input_word, req_url):
 
 
 async def fetch(url):
+    last_err = None
     async with requester as session:
         ua = generate_user_agent(os=("win", "linux"), navigator="chrome")
         logger.debug("generate User-Agent header: %s", ua)
@@ -86,12 +87,12 @@ async def fetch(url):
                 logger.info("fetching url: %s, attempt: %d", url, attempt)
                 async with session.get(url) as resp:
                     return str(resp.url), await resp.text()
-            except Exception as e:
+            except Exception as exception:
+                last_err = exception
                 logger.error(
-                    "fetching url: %s, attempt: %d failed. %s", url, attempt, e)
+                    "fetching url: %s, attempt: %d failed. %s", url, attempt, exception)
         logger.error("maximum retries reached. \nExit")
-
-    sys.exit(1)
+    raise last_err
 
 
 async def save_word_response(con, cur, input_word, response_word, res_url, res_text):
