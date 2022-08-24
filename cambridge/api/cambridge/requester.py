@@ -31,8 +31,8 @@ async def search_cambridge(con, cur, input_word, is_fresh=False):
 
     try:
         html = await fetch_from_cache(con, cur, input_word, req_url)
-        logger.debug("cache html found for word: %s, len: %d",
-                     input_word, len(html))
+        logger.info("cache html found for word: %s, len: %d",
+                    input_word, len(html))
         return html
     except CacheNotFoundException:
         logger.info(
