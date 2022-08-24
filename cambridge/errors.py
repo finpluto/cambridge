@@ -31,6 +31,7 @@ def call_on_error(error, url, attempt, op):
     attempt += 1
     logger.debug(f"{op} HTML from {url} {attempt} times - [ERROR] - {error}")
     if attempt == 3:
-        logger.error(f"Maximum {op} retries reached. [ERROR] - {error}\nExit")
-        sys.exit()
+        logger.exception(
+            f"Maximum {op} retries reached. [ERROR] - {error}\nExit")
+        raise error
     return attempt
